@@ -86,8 +86,14 @@ int main() {
 }
 #endif
 
-#if 1 //视频中提取图片
+#if 0 //视频中提取图片
 int main() {
 	mpt_extract_pic_from_video("./tmp/test.mp4", "./tmp/");
+}
+#endif
+
+#if 1 //视频中提取图片并合成9宫格图片
+int main() {
+	mpt_extract_merge_pic_from_video("./tmp/test.mp4", "./tmp/", 10);
 }
 #endif

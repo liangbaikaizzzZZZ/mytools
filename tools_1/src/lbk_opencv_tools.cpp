@@ -103,6 +103,54 @@ void mpt_extract_pic_from_video(std::string videopath, std::string picpath)
 	capture.release();
 }
 
+/*视频中提取图片并合成九宫格图片
+@param videopath 视频地址
+@param picpath   九宫格图片存放地址，末尾加上斜杠
+*/
+void mpt_extract_merge_pic_from_video(std::string videopath, std::string picpath, int gap)
+{
+	cv::VideoCapture capture;
+	capture.open(videopath);// 打开文件
+	if (!capture.isOpened()) {
+		printf("read video file failed !\n");
+		return;
+	}
+	cv::Mat frame, dst;
+	std::vector<cv::Mat> nine_pic_v;
+	int i = 0, j = 0;
+	while (capture.read(frame)) {
+		if (i % gap == 0) {
+			cv::Mat tmp_m = frame.clone();
+			nine_pic_v.push_back(tmp_m);
+			if (nine_pic_v.size() == 9) {
+				//merge
+				cv::Mat vmat1, vmat2, vmat3;
+				cv::Mat hmatArray[] = { nine_pic_v[0],nine_pic_v[1],nine_pic_v[2] };//水平方向三个图片
+				cv::hconcat(hmatArray, 3, vmat1);//水平反向三个图片合成
+				hmatArray[0] = nine_pic_v[3];
+				hmatArray[1] = nine_pic_v[4];
+				hmatArray[2] = nine_pic_v[5];
+				cv::hconcat(hmatArray, 3, vmat2);
+				hmatArray[0] = nine_pic_v[6];
+				hmatArray[1] = nine_pic_v[7];
+				hmatArray[2] = nine_pic_v[8];
+				cv::hconcat(hmatArray, 3, vmat3);
+				//将水平方向合成的图片再垂直合并到一起
+				cv::Mat vmatArray[] = { vmat1 ,vmat2 ,vmat3 };
+				cv::vconcat(vmatArray, 3, dst);
+				nine_pic_v.clear();
+				//save
+				j++;
+				std::string pic = "";
+				pic = picpath + "20201210004" + std::to_string(j) + ".jpg";
+				cv::imwrite(pic, dst);
+			}
+		}
+		i++;
+	}
+	capture.release();
+}
+
 //中值滤波gpu版本
 void mpt_medianBlur_cuda(cv::Mat& src, cv::Mat& dst) {
 	double t1 = GetTickCount64();

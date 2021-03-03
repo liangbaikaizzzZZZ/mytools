@@ -18,3 +18,6 @@ void mpt_medianBlur(cv::Mat& src, cv::Mat& dst);
 
 //视频中提取图片
 void mpt_extract_pic_from_video(std::string videopath, std::string picpath);
+
+//视频中提取图片并合成九宫格图片
+void mpt_extract_merge_pic_from_video(std::string videopath, std::string picpath, int gap = 1);
