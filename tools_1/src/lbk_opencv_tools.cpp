@@ -106,7 +106,7 @@ void mpt_extract_pic_from_video(std::string videopath, std::string picpath)
 /*视频中提取图片并合成九宫格图片
 @param videopath 视频地址
 @param picpath   九宫格图片存放地址，末尾加上斜杠
-@param gap		 视频中间隔gap个帧选一个
+@param gap       视频中间隔gap个帧选一个
 */
 void mpt_extract_merge_pic_from_video(std::string videopath, std::string picpath, int gap)
 {
