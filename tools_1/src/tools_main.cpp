@@ -94,6 +94,6 @@ int main() {
 
 #if 1 //视频中提取图片并合成9宫格图片
 int main() {
-	mpt_extract_merge_pic_from_video("./tmp/test.mp4", "./tmp/", 10);
+	mpt_extract_merge_pic_from_video("C:/Users/langd/Desktop/ceshi/分类/广告视频/8.mp4", "C:/Users/langd/Desktop/ceshi/分类/广告九宫格/", 10);
 }
 #endif

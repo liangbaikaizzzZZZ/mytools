@@ -143,7 +143,9 @@ void mpt_extract_merge_pic_from_video(std::string videopath, std::string picpath
 				//save
 				j++;
 				std::string pic = "";
-				pic = picpath + "20201210004" + std::to_string(j) + ".jpg";
+				pic = picpath + "202103080008" + std::to_string(j) + ".jpg";
+				//resize图片尺寸
+				cv::resize(dst, dst, cv::Size(224, 224));
 				cv::imwrite(pic, dst);
 			}
 		}
